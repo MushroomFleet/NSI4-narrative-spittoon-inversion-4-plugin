@@ -1,0 +1,15 @@
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Write",
+        "hooks": [
+          {
+            "type": "prompt",
+            "prompt": "If the file being written matches the pattern STORY/page*.md, verify that: (1) A bucket/ directory exists in the project with at least project-instructions.md, world.md, characters.md, and speechstyles.md files. (2) The content being written is narrative prose (not template content or empty). If bucket files are missing, respond with 'BLOCK: Cannot write story pages without a complete bucket. Run /nsi4-frameworks first.' Otherwise allow the write to proceed by responding with nothing."
+          }
+        ]
+      }
+    ]
+  }
+}
