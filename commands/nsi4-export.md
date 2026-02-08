@@ -43,7 +43,12 @@ If first argument is "import":
    ```
    python3 ${CLAUDE_PLUGIN_ROOT}/scripts/nsl-converter.py import --input [path.nsl] --bucket ./bucket --story ./STORY
    ```
-4. Report what was extracted and created
+4. **Check the output for CONTENT WARNINGS.** The converter validates that imported story pages contain real content rather than placeholder text. If warnings appear:
+   - Tell the user which pages have placeholder/abbreviated content
+   - Explain that the source NSL file did not contain complete story text
+   - The story pages need to be written or provided separately
+5. After import, read each `STORY/page*.md` file and verify it contains substantial prose (800-1500 words expected per page). Pages with under 100 words or containing `[Content continues` or `[Full content` markers are incomplete.
+6. Report what was extracted and created, including any content warnings
 
 ### If Python is not available:
 

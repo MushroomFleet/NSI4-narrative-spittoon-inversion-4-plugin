@@ -20,6 +20,24 @@ from xml.dom import minidom
 from pathlib import Path
 
 
+# Patterns that indicate abbreviated/placeholder content instead of real story
+PLACEHOLDER_PATTERNS = [
+    r'\[Content continues',
+    r'\[Full content',
+    r'\[.*abbreviated.*\]',
+    r'\[.*full (?:text|version|page).*\]',
+    r'\[.*in (?:bucket|STORY)/.*\]',
+]
+
+
+def is_placeholder_content(text):
+    """Check if text contains placeholder markers instead of real story content."""
+    for pattern in PLACEHOLDER_PATTERNS:
+        if re.search(pattern, text, re.IGNORECASE):
+            return True
+    return False
+
+
 def read_file(path):
     """Read a file and return its content."""
     with open(path, 'r', encoding='utf-8') as f:
@@ -256,6 +274,26 @@ def export_bucket(bucket_path, story_path, output_path):
     dom = minidom.parseString(xml_str)
     pretty_xml = dom.toprettyxml(indent='  ', encoding='UTF-8').decode('utf-8')
 
+    # Post-process: wrap large text content in CDATA sections.
+    # This ensures story pages, frameworks, and supplementary docs survive
+    # round-tripping without XML escaping issues (ampersands, angle brackets, etc).
+    def wrap_cdata(match):
+        """Wrap Content element text in CDATA if it contains multi-line content."""
+        tag_open = match.group(1)
+        inner = match.group(2)
+        tag_close = match.group(3)
+        # Only wrap if content has newlines (multi-line = real content worth protecting)
+        if '\n' in inner and '<![CDATA[' not in inner:
+            return f'{tag_open}<![CDATA[\n{inner.strip()}\n]]>{tag_close}'
+        return match.group(0)
+
+    pretty_xml = re.sub(
+        r'(<Content[^>]*>)(.*?)(</Content>)',
+        wrap_cdata,
+        pretty_xml,
+        flags=re.DOTALL
+    )
+
     write_file(output_path, pretty_xml)
     print(f'Exported to: {output_path}')
     print(f'File size: {os.path.getsize(output_path):,} bytes')
@@ -300,8 +338,13 @@ def import_nsl(input_path, bucket_path, story_path):
             if elem is not None:
                 content_elem = find(elem, 'Content')
                 content = content_elem.text if content_elem is not None else (elem.text or '')
+                content = content.strip()
                 filepath = os.path.join(bucket_path, f'{tag}.md')
-                write_file(filepath, f'<{tag}>\n{content.strip()}\n</{tag}>\n')
+                # Avoid double-wrapping: if content already has the tag, use as-is
+                if f'<{tag}>' in content and f'</{tag}>' in content:
+                    write_file(filepath, content + '\n')
+                else:
+                    write_file(filepath, f'<{tag}>\n{content}\n</{tag}>\n')
                 files_created.append(filepath)
 
     # --- Extract Universe ---
@@ -440,10 +483,28 @@ def import_nsl(input_path, bucket_path, story_path):
     write_file(manifest_path, manifest_content)
     files_created.append(manifest_path)
 
+    # --- Validate imported story pages for placeholder content ---
+    warnings = []
+    story_files = sorted(Path(story_path).glob('page*.md'))
+    for sf in story_files:
+        content = read_file(str(sf))
+        word_count = len(content.split())
+        if is_placeholder_content(content):
+            warnings.append(f'  WARNING: {sf.name} contains placeholder text (not full story content)')
+        elif word_count < 100:
+            warnings.append(f'  WARNING: {sf.name} is only {word_count} words (expected 800-1500)')
+
     print(f'Imported from: {input_path}')
     print(f'Files created: {len(files_created)}')
     for f in files_created:
         print(f'  {f}')
+
+    if warnings:
+        print(f'\n--- CONTENT WARNINGS ---')
+        for w in warnings:
+            print(w)
+        print(f'\nThe NSL file may contain abbreviated/summary content instead of full story pages.')
+        print(f'Ensure the source NSL was exported with complete page content.')
 
 
 def generate_manifest(bucket_path):
