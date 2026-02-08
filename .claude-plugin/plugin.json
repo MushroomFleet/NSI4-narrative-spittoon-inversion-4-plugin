@@ -1,0 +1,18 @@
+{
+  "name": "narrative-spittoon-inversion",
+  "version": "4.0.0",
+  "description": "Narrative Spittoon Inversion 4.0 — AI-assisted story creation using reverse chronological generation. Guides authors through a structured 5-phase workflow: knowledge gathering, bucket artifact creation, cognitive framework setup, reverse story generation, and refinement. Includes NSL 1.1 import/export support.",
+  "author": {
+    "name": "Drift Johnson",
+    "url": "https://ScuffedEpoch.com"
+  },
+  "license": "MIT",
+  "keywords": [
+    "narrative",
+    "story-generation",
+    "creative-writing",
+    "reverse-chronological",
+    "nsl",
+    "narrative-spittoon"
+  ]
+}
