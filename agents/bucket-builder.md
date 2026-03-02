@@ -136,3 +136,13 @@ Relationships: [Connections to other characters]
 - **Consistent**: Character details match across all artifacts
 - **Usable**: Each artifact should stand alone as a reference
 - **Tagged**: Use XML-style tags matching the template conventions
+
+### Protected Files — DO NOT MODIFY
+
+The following files are CORE cognitive frameworks. You must NEVER write to, edit, overwrite, or recreate these files under any circumstances:
+
+- `bucket/NarrativeSpittoon.md`
+- `bucket/GhostWritingStyle.md`
+- `bucket/HolographicTutor.md`
+
+These files are installed by `/nsi4-start` and managed by `/nsi4-frameworks`. Your scope is limited to: `world.md`, `characters.md`, `speechstyles.md`, technical artifacts (`.json`, `.mermaid`), and the glossary (`.txt`).

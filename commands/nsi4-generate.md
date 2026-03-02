@@ -17,6 +17,10 @@ You are executing NSI4 Phase 4: Story Generation — The Inversion.
 Project manifest: !`cat bucket/project-instructions.md 2>/dev/null || echo "ERROR: No manifest. Run /nsi4-frameworks first."`
 Existing story pages: !`ls STORY/page*.md 2>/dev/null || echo "No pages yet"`
 
+## CRITICAL RULE: Full Pages Only
+
+Every page you write MUST be complete, publication-ready prose — 800 to 1500 words of actual narrative. This is the core function of the entire plugin. You must write the full story content directly into each page file. Never use summaries, placeholders, abbreviated content, bracketed notes like `[content continues]`, or any other shortcut. Every page is a finished chapter of a real story.
+
 ## Your Task
 
 Generate the story in reverse chronological order. Each page is written backward from the ending, with user approval between each page.
@@ -76,7 +80,8 @@ For each page, follow this process:
    | 1 | Tests, Allies, Enemies / Setup | World establishment |
    | 0 | Ordinary World / Opening | Beginning |
 
-3. **Generate the page** (800-1500 words) ensuring:
+3. **Generate the page** — write 800 to 1500 words of complete narrative prose:
+   - Write the FULL page. Every sentence, every paragraph, every line of dialogue. No summaries, no outlines, no `[content continues]` markers. The file you write IS the story.
    - Answers "what led to the next page's events?"
    - Maintains character consistency (reference speechstyles.md)
    - Builds world details (reference world.md)
@@ -85,7 +90,7 @@ For each page, follow this process:
    - Uses the Hero's Journey stage for this page number
    - Flows naturally into the next page
 
-4. **Write to STORY/page[N].md**
+4. **Write the complete page to STORY/page[N].md** — the file must contain the entire narrative, not a reference or summary
 
 5. **Present the page** to the user and ask for approval via AskUserQuestion:
    - "Page [N] generated ([word count] words). Approve or request revisions?"
@@ -103,12 +108,13 @@ For each page, follow this process:
 
 ### Page Format
 
-Each page file should contain:
+Each page file must contain the complete narrative — full scenes with dialogue, action, description, and internal thought. No section of any page may be summarized or deferred.
 
 ```markdown
 # Page [N]: [Brief Title]
 
-[Story content — 800-1500 words]
+[Complete narrative prose — 800-1500 words of actual story content.
+Scenes, dialogue, description, action. Every word written out in full.]
 
 ---
 *Hero's Journey Stage: [Stage Name]*

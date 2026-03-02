@@ -6,6 +6,7 @@ allowed-tools:
   - Edit
   - Glob
   - Grep
+  - Bash
 ---
 
 ## Context
@@ -29,7 +30,26 @@ Check that these three files exist and contain proper content (not just template
 
 3. **`bucket/HolographicTutor.md`** — Must contain the `<HolographicTutor>` framework with Score, Review, Critic, and Weakness functions.
 
-If any framework is missing or contains only template content, read the canonical version from `${CLAUDE_PLUGIN_ROOT}/bucket/` and write it to the project's `bucket/`.
+#### Restoring missing frameworks
+
+If `NarrativeSpittoon.md` or `HolographicTutor.md` is missing or contains only template content, restore using a literal file copy via Bash — do NOT use Read+Write, as LLM interpretation can distort the framework's meaning:
+
+```bash
+cp "${CLAUDE_PLUGIN_ROOT}/bucket/NarrativeSpittoon.md" bucket/NarrativeSpittoon.md
+cp "${CLAUDE_PLUGIN_ROOT}/bucket/HolographicTutor.md" bucket/HolographicTutor.md
+```
+
+Only copy the specific file(s) that are missing or incomplete. After restoring, verify with `diff` against the canonical source.
+
+#### Special handling: GhostWritingStyle.md
+
+`GhostWritingStyle.md` may be a **user-supplied custom version** installed via the `--ghost` flag during `/nsi4-start`. Therefore:
+
+- **If the file EXISTS and contains valid `<GhostWritingStyle>` tags**: Do NOT overwrite it. It is either the default or a custom version — both are valid and must be preserved.
+- **If the file is MISSING entirely**: Restore the default from the plugin source:
+  ```bash
+  cp "${CLAUDE_PLUGIN_ROOT}/bucket/GhostWritingStyle.md" bucket/GhostWritingStyle.md
+  ```
 
 ### Step 2: Generate Project Manifest
 

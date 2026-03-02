@@ -26,12 +26,13 @@ Convert between the bucket folder structure and NSL 1.1 XML format.
 If first argument is "export" or no argument:
 
 1. Verify bucket/ and STORY/ directories exist
-2. Run the NSL converter script:
+2. The export MUST include the complete content of every file — full story pages, full bucket artifacts. The converter reads each file in its entirety and embeds it in CDATA sections. Never abbreviate, summarize, or truncate any content during export.
+3. Run the NSL converter script:
    ```
    python3 ${CLAUDE_PLUGIN_ROOT}/scripts/nsl-converter.py export --bucket ./bucket --story ./STORY --output [project-name].nsl
    ```
-3. If no output path specified, use the project directory name + `.nsl`
-4. Report the generated file path and size
+4. If no output path specified, use the project directory name + `.nsl`
+5. Report the generated file path and size
 
 ### Import (.nsl to bucket)
 

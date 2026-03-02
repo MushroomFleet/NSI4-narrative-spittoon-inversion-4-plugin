@@ -99,4 +99,11 @@ After generating all artifacts:
 2. Verify each file has substantive content (not just template placeholders)
 3. Suggest running `/nsi4-frameworks` as the next step
 
-Do not modify the cognitive framework files (NarrativeSpittoon.md, GhostWritingStyle.md, HolographicTutor.md) — those are handled by `/nsi4-frameworks`.
+### CORE File Immutability Rule
+
+**DO NOT** write to, edit, overwrite, or recreate these CORE cognitive framework files:
+- `bucket/NarrativeSpittoon.md`
+- `bucket/GhostWritingStyle.md`
+- `bucket/HolographicTutor.md`
+
+These are immutable artifacts copied verbatim from the plugin source during `/nsi4-start`. They must never pass through LLM interpretation. If they are missing or corrupted, the user must run `/nsi4-frameworks` to restore them via literal file copy.
