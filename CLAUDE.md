@@ -6,7 +6,7 @@ This is a Claude Code plugin implementing the Narrative Spittoon Inversion (NSI)
 
 ## Commands
 
-- `/nsi4-start [name]` — Initialize project structure
+- `/nsi4-start [name] [--ghost path]` — Initialize project structure (--ghost overrides default GhostWritingStyle.md with a custom file)
 - `/nsi4-interview` — 20-question LoreBook interview
 - `/nsi4-bucket` — Distill LoreBook into artifacts
 - `/nsi4-frameworks` — Install cognitive frameworks
@@ -17,7 +17,9 @@ This is a Claude Code plugin implementing the Narrative Spittoon Inversion (NSI)
 ## Architecture
 
 - `bucket/` templates are copied to new projects by /nsi4-start
-- Three cognitive frameworks guide generation quality
+- Three CORE cognitive frameworks (NarrativeSpittoon.md, GhostWritingStyle.md, HolographicTutor.md) are copied via literal `cp` to prevent LLM paraphrase distortion
+- GhostWritingStyle.md can be overridden with a user-supplied custom version via `--ghost`
+- All CORE files are immutable after placement — protected by hooks against Write/Edit
 - Story pages are generated in reverse order with approval gates
 - NSL 1.1 XML format for import/export portability
 

@@ -55,6 +55,9 @@ claude plugins add ./NSI4-narrative-spittoon-inversion-4-plugin
 # 1. Create a new story project
 /nsi4-start my-story
 
+# Or with a custom GhostWritingStyle:
+# /nsi4-start my-story --ghost ~/my-ghost-style.md
+
 # 2. Run the 20-question LoreBook interview
 /nsi4-interview
 
@@ -81,7 +84,7 @@ claude plugins add ./NSI4-narrative-spittoon-inversion-4-plugin
 
 | Command | Phase | Description |
 |---------|-------|-------------|
-| `/nsi4-start [name]` | Setup | Create project structure with `bucket/` and `STORY/` folders, copy template files |
+| `/nsi4-start [name] [--ghost path]` | Setup | Create project structure, copy CORE frameworks via `cp`, copy templates. Use `--ghost` to override default GhostWritingStyle.md with a custom file |
 | `/nsi4-interview` | Phase 1 | Run a dynamic 20-question interview to build `LoreBook.md` |
 | `/nsi4-bucket [all\|artifacts\|technical]` | Phase 2 | Distill the LoreBook into world, character, speech style, and technical artifacts |
 | `/nsi4-frameworks` | Phase 3 | Verify/install cognitive frameworks and generate `project-instructions.md` manifest |
@@ -119,7 +122,7 @@ Each answer is saved incrementally to `bucket/LoreBook.md`. Use `/nsi4-interview
 
 ### Phase 3: Core Framework Setup
 
-`/nsi4-frameworks` installs three cognitive frameworks that guide AI generation quality:
+Three CORE cognitive frameworks guide AI generation quality. These are copied verbatim (byte-for-byte via `cp`) during `/nsi4-start` to prevent LLM paraphrase distortion. `/nsi4-frameworks` verifies they are present and generates the project manifest.
 
 **NarrativeSpittoon.md** — Controls narrative technique by replacing explicit logical connectors ("because", "but", "therefore") with implicit storytelling:
 - Implicit Causality: Embed motivations through dialogue, action, description
@@ -130,12 +133,15 @@ Each answer is saved incrementally to `bucket/LoreBook.md`. Use `/nsi4-interview
 - Sentence variety, natural dialogue, speaker rotation
 - Pauses, hesitations, filler words for realistic speech
 - Active voice, vivid imagery, balanced pacing
+- Can be overridden with a user-supplied custom version via `--ghost` (see [Custom GhostWritingStyle](#custom-ghostwritingstyle) below)
 
 **HolographicTutor.md** — Quality assessment system with four functions:
 - **Score**: Numerical rating out of 100 with justification
 - **Review**: Academic analysis with specific examples
 - **Critic**: Publisher perspective with market viability
 - **Weakness**: 3 areas needing improvement (quotes, no suggestions)
+
+All three CORE files are immutable after placement — hooks block Write and Edit operations on them. If a CORE file is missing, `/nsi4-frameworks` restores it from the plugin source via literal copy. Custom GhostWritingStyle files (installed via `--ghost`) are preserved and not overwritten during restoration.
 
 ### Phase 4: Story Generation — The Inversion
 
@@ -161,6 +167,47 @@ Each page targets 800-1500 words, references all bucket files for consistency, a
 3. **Repetition Sniper** (`repetition`) — Eliminate redundant phrasing across all pages
 4. **Narrative Smoothing** (`smoothing`) — Polish transitions and fix reverse-generation seams
 5. **Environmental Enhancement** (`environment`) — Deepen sensory details and atmosphere
+
+---
+
+## Custom GhostWritingStyle
+
+Many users have developed their own tailored GhostWritingStyle files through extended use with the NSI system. The `--ghost` flag allows you to use a custom version instead of the default.
+
+### Usage
+
+```bash
+# Use your custom ghost style for a new project
+/nsi4-start my-story --ghost ~/my-writing-style.md
+
+# Works with or without a project name
+/nsi4-start --ghost ./styles/literary-fiction-ghost.md
+```
+
+### Requirements
+
+Your custom file must:
+- **Exist** at the specified path
+- **Contain `<GhostWritingStyle>` tags** — the file is validated before copying
+
+### What Happens
+
+1. During `/nsi4-start`, your file is copied via `cp` (byte-for-byte, no LLM interpretation)
+2. It receives the same immutability protections as the default — hooks block Write/Edit after placement
+3. `/nsi4-frameworks` will not overwrite it during verification, as long as it exists and contains valid `<GhostWritingStyle>` tags
+4. If the file is later deleted, `/nsi4-frameworks` restores the **default** version (not the custom one)
+
+### Creating a Custom GhostWritingStyle
+
+A custom file should follow the same structure as the default — wrap your writing rules in `<GhostWritingStyle>` tags:
+
+```markdown
+<GhostWritingStyle>
+Your custom writing rules here...
+</GhostWritingStyle>
+```
+
+The content within the tags is entirely up to you. Common customizations include genre-specific pacing rules, dialogue density preferences, vocabulary constraints, and tonal guidelines.
 
 ---
 
@@ -236,17 +283,17 @@ narrative-spittoon-inversion/
 │           ├── nsi4-process-guide.md
 │           └── nsl-1.1-specification.md
 ├── hooks/
-│   └── hooks.json               # Story page validation hook
+│   └── hooks.json               # CORE file write/edit protection + story page validation
 ├── scripts/
 │   └── nsl-converter.py         # NSL XML converter (Python 3.6+)
-├── bucket/                      # Template files for new projects
-│   ├── Characters.md
-│   ├── SpeechStyles.md
-│   ├── World.md
-│   ├── NarrativeSpittoon.md
-│   ├── GhostWritingStyle.md
-│   ├── HolographicTutor.md
-│   └── project-instructions.md
+├── bucket/                      # Source files for new projects
+│   ├── NarrativeSpittoon.md     # CORE — copied verbatim via cp
+│   ├── GhostWritingStyle.md     # CORE — copied verbatim (or overridden via --ghost)
+│   ├── HolographicTutor.md      # CORE — copied verbatim via cp
+│   ├── Characters.md            # Template — replaced by /nsi4-bucket
+│   ├── SpeechStyles.md          # Template — replaced by /nsi4-bucket
+│   ├── World.md                 # Template — replaced by /nsi4-bucket
+│   └── project-instructions.md  # Template — replaced by /nsi4-frameworks
 ├── docs/                        # Specification documents
 │   ├── NSL-1.1-specification.md
 │   ├── NarrativeSpittoonInversion3.0-process.md
@@ -281,13 +328,13 @@ When you run `/nsi4-start`, the following structure is created in your working d
 ```
 your-story/
 ├── bucket/
+│   ├── NarrativeSpittoon.md     ← CORE: copied by /nsi4-start (immutable)
+│   ├── GhostWritingStyle.md     ← CORE: copied by /nsi4-start (immutable, or custom via --ghost)
+│   ├── HolographicTutor.md      ← CORE: copied by /nsi4-start (immutable)
 │   ├── LoreBook.md              ← Built by /nsi4-interview
 │   ├── world.md                 ← Generated by /nsi4-bucket
 │   ├── characters.md            ← Generated by /nsi4-bucket
 │   ├── speechstyles.md          ← Generated by /nsi4-bucket
-│   ├── NarrativeSpittoon.md     ← Installed by /nsi4-frameworks
-│   ├── GhostWritingStyle.md     ← Installed by /nsi4-frameworks
-│   ├── HolographicTutor.md      ← Installed by /nsi4-frameworks
 │   ├── project-instructions.md  ← Generated by /nsi4-frameworks
 │   ├── *.json                   ← Generated by /nsi4-bucket
 │   ├── *.mermaid                ← Generated by /nsi4-bucket
@@ -322,7 +369,7 @@ your-story/
 | Validation | Manual review only | Holographic Tutor agent on demand |
 | Templates | User copies from docs | `/nsi4-start` copies templates automatically |
 | NSL Support | None | Full import/export via Python script |
-| Frameworks | User installs manually | `/nsi4-frameworks` installs and configures |
+| Frameworks | User installs manually | `/nsi4-start` copies CORE files via `cp`; `/nsi4-frameworks` verifies and generates manifest. Custom ghost styles via `--ghost` |
 
 ---
 

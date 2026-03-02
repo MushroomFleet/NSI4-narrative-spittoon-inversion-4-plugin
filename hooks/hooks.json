@@ -6,7 +6,16 @@
         "hooks": [
           {
             "type": "prompt",
-            "prompt": "If the file being written matches the pattern STORY/page*.md, verify that: (1) A bucket/ directory exists in the project with at least project-instructions.md, world.md, characters.md, and speechstyles.md files. (2) The content being written is narrative prose (not template content or empty). If bucket files are missing, respond with 'BLOCK: Cannot write story pages without a complete bucket. Run /nsi4-frameworks first.' Otherwise allow the write to proceed by responding with nothing."
+            "prompt": "Check TWO conditions for this Write operation: (1) CORE FILE PROTECTION: If the file being written matches bucket/NarrativeSpittoon.md, bucket/GhostWritingStyle.md, or bucket/HolographicTutor.md AND those files already exist with content, respond with 'BLOCK: Cannot overwrite CORE cognitive framework files with Write tool. These files must only be copied via Bash cp from the plugin source. If you need to restore them, use: cp ${CLAUDE_PLUGIN_ROOT}/bucket/[filename] bucket/[filename]'. (2) STORY PAGE VALIDATION: If the file being written matches the pattern STORY/page*.md, verify that: (a) A bucket/ directory exists in the project with at least project-instructions.md, world.md, characters.md, and speechstyles.md files. (b) The content being written is narrative prose (not template content or empty). If bucket files are missing, respond with 'BLOCK: Cannot write story pages without a complete bucket. Run /nsi4-frameworks first.' If neither condition applies, allow the write to proceed by responding with nothing."
+          }
+        ]
+      },
+      {
+        "matcher": "Edit",
+        "hooks": [
+          {
+            "type": "prompt",
+            "prompt": "If the file being edited matches bucket/NarrativeSpittoon.md, bucket/GhostWritingStyle.md, or bucket/HolographicTutor.md, respond with 'BLOCK: Cannot edit CORE cognitive framework files. These are immutable artifacts managed by /nsi4-start and /nsi4-frameworks only via literal file copy.' Otherwise allow the edit to proceed by responding with nothing."
           }
         ]
       }
