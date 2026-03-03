@@ -51,6 +51,7 @@ The following files are **CORE cognitive frameworks** that MUST be copied byte-f
 ```bash
 cp "${CLAUDE_PLUGIN_ROOT}/bucket/NarrativeSpittoon.md" bucket/NarrativeSpittoon.md
 cp "${CLAUDE_PLUGIN_ROOT}/bucket/HolographicTutor.md" bucket/HolographicTutor.md
+cp "${CLAUDE_PLUGIN_ROOT}/bucket/GhostWritingStyle-sentence.md" bucket/GhostWritingStyle-sentence.md
 ```
 
 **GhostWritingStyle.md — conditional source:**
@@ -65,7 +66,7 @@ If `--ghost` was NOT provided (default):
 cp "${CLAUDE_PLUGIN_ROOT}/bucket/GhostWritingStyle.md" bucket/GhostWritingStyle.md
 ```
 
-All three files are finished artifacts — do not read, interpret, summarize, or rewrite them. The custom ghost file receives the same immutability protections as the default.
+All four files are finished artifacts — do not read, interpret, summarize, or rewrite them. The custom ghost file receives the same immutability protections as the default. GhostWritingStyle-sentence.md is always installed from the plugin source regardless of --ghost usage.
 
 ### Step 3: Copy Mutable Templates
 
@@ -78,12 +79,13 @@ Read each of the following templates from `${CLAUDE_PLUGIN_ROOT}/bucket/` and wr
 
 ### Step 4: Verify CORE File Integrity
 
-After copying, verify the three CORE files were copied correctly by running diff against their respective sources:
+After copying, verify the four CORE files were copied correctly by running diff against their respective sources:
 
 **Always diff against plugin source:**
 ```bash
 diff "${CLAUDE_PLUGIN_ROOT}/bucket/NarrativeSpittoon.md" bucket/NarrativeSpittoon.md
 diff "${CLAUDE_PLUGIN_ROOT}/bucket/HolographicTutor.md" bucket/HolographicTutor.md
+diff "${CLAUDE_PLUGIN_ROOT}/bucket/GhostWritingStyle-sentence.md" bucket/GhostWritingStyle-sentence.md
 ```
 
 **GhostWritingStyle.md — diff against the source that was used:**
@@ -117,6 +119,7 @@ Created:
   bucket/
     NarrativeSpittoon.md   (CORE — verbatim copy ✓)
     GhostWritingStyle.md   (CORE — verbatim copy ✓)
+    GhostWritingStyle-sentence.md (CORE — verbatim copy ✓)
     HolographicTutor.md    (CORE — verbatim copy ✓)
     Characters.md          (template — fill during /nsi4-bucket)
     SpeechStyles.md        (template — fill during /nsi4-bucket)
@@ -125,7 +128,7 @@ Created:
   STORY/
     (empty — pages will be generated during /nsi4-generate)
 
-CORE integrity: All 3 cognitive frameworks verified against source.
+CORE integrity: All 4 cognitive frameworks verified against source.
 Next step: Run /nsi4-interview to begin the 20-question LoreBook interview.
 ```
 
@@ -137,6 +140,7 @@ Created:
   bucket/
     NarrativeSpittoon.md   (CORE — verbatim copy ✓)
     GhostWritingStyle.md   (CORE — custom ghost ✓) ← [source path]
+    GhostWritingStyle-sentence.md (CORE — verbatim copy ✓)
     HolographicTutor.md    (CORE — verbatim copy ✓)
     Characters.md          (template — fill during /nsi4-bucket)
     SpeechStyles.md        (template — fill during /nsi4-bucket)
@@ -145,7 +149,7 @@ Created:
   STORY/
     (empty — pages will be generated during /nsi4-generate)
 
-CORE integrity: 2 default + 1 custom cognitive frameworks verified.
+CORE integrity: 3 default + 1 custom cognitive frameworks verified.
 Next step: Run /nsi4-interview to begin the 20-question LoreBook interview.
 ```
 

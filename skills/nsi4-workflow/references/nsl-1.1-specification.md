@@ -224,7 +224,7 @@ Contains project-level information and configuration.
 
 #### `<CognitiveFrameworks>`
 
-Contains the three core instruction sets that guide narrative generation.
+Contains the four core instruction sets that guide narrative generation.
 
 ```xml
 <CognitiveFrameworks>

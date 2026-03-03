@@ -29,7 +29,7 @@ reviewing changes before proceeding to the next pass.
 - Plot coherence across the reverse-generated structure
 - Character voice consistency
 - Pacing and flow
-- Adherence to GhostWritingStyle.md guidelines
+- Adherence to GhostWritingStyle.md guidelines and GhostWritingStyle-sentence.md prose register
 
 ---
 
@@ -93,6 +93,6 @@ reviewing changes before proceeding to the next pass.
 2. Deepen atmosphere and mood
 3. Use environment to reflect character emotions
 4. Integrate world-building details naturally (reference world.md)
-5. Balance description with action (per GhostWritingStyle.md)
+5. Balance description with action (per GhostWritingStyle.md) using paratactic prose (per GhostWritingStyle-sentence.md)
 
 **Warning**: Do not slow pacing. Environmental details should enhance, not pad.

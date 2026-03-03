@@ -12,13 +12,16 @@ This plan addresses the root cause, catalogs all affected code paths, and provid
 
 ### Problem Statement
 
-Three bucket files are **CORE cognitive frameworks** — they are finished artifacts that guide story generation and must never be altered:
+Four bucket files are **CORE cognitive frameworks** — they are finished artifacts that guide story generation and must never be altered:
 
 | File | Purpose | Risk |
 |------|---------|------|
-| `NarrativeSpittoon.md` | "Because, but, therefore" implicit narrative strategy | Meaning inversion during paraphrase |
+| `NarrativeSpittoon.md` | Scene-level "because, but, therefore" implicit narrative strategy | Meaning inversion during paraphrase |
 | `GhostWritingStyle.md` | Prose mechanics and dialogue rules | Rule distortion during paraphrase |
+| `GhostWritingStyle-sentence.md` | Sentence-level prose style (parataxis, no literal but/because/therefore) | Style register collapse during paraphrase |
 | `HolographicTutor.md` | Quality assessment with 4 evaluation functions | Function specification drift |
+
+Note: `GhostWritingStyle.md` can be overridden via `--ghost`, but `GhostWritingStyle-sentence.md` is always installed from the plugin source and has no custom override mechanism.
 
 The remaining bucket files (`Characters.md`, `SpeechStyles.md`, `World.md`, `project-instructions.md`) are **templates** — designed to be overwritten with LoreBook-derived content.
 
@@ -104,6 +107,7 @@ bucket/
 ├── CORE FILES (immutable — literal copy only)
 │   ├── NarrativeSpittoon.md
 │   ├── GhostWritingStyle.md
+│   ├── GhostWritingStyle-sentence.md
 │   └── HolographicTutor.md
 │
 └── TEMPLATE FILES (mutable — overwritten from LoreBook)

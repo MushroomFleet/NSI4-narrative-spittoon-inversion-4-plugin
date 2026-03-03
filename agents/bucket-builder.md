@@ -143,6 +143,7 @@ The following files are CORE cognitive frameworks. You must NEVER write to, edit
 
 - `bucket/NarrativeSpittoon.md`
 - `bucket/GhostWritingStyle.md`
+- `bucket/GhostWritingStyle-sentence.md`
 - `bucket/HolographicTutor.md`
 
 These files are installed by `/nsi4-start` and managed by `/nsi4-frameworks`. Your scope is limited to: `world.md`, `characters.md`, `speechstyles.md`, technical artifacts (`.json`, `.mermaid`), and the glossary (`.txt`).

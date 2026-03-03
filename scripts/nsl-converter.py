@@ -116,6 +116,7 @@ def export_bucket(bucket_path, story_path, output_path):
     framework_files = {
         'NarrativeSpittoon': 'NarrativeSpittoon.md',
         'GhostWritingStyle': 'GhostWritingStyle.md',
+        'GhostWritingSentenceStyle': 'GhostWritingStyle-sentence.md',
         'HolographicTutor': 'HolographicTutor.md',
     }
 
@@ -333,13 +334,20 @@ def import_nsl(input_path, bucket_path, story_path):
     # --- Extract CognitiveFrameworks ---
     frameworks = find(root, 'CognitiveFrameworks')
     if frameworks is not None:
-        for tag in ['NarrativeSpittoon', 'GhostWritingStyle', 'HolographicTutor']:
+        # Map XML tag names to filenames (most match, but GhostWritingSentenceStyle doesn't)
+        tag_to_filename = {
+            'NarrativeSpittoon': 'NarrativeSpittoon.md',
+            'GhostWritingStyle': 'GhostWritingStyle.md',
+            'GhostWritingSentenceStyle': 'GhostWritingStyle-sentence.md',
+            'HolographicTutor': 'HolographicTutor.md',
+        }
+        for tag, filename in tag_to_filename.items():
             elem = find(frameworks, tag)
             if elem is not None:
                 content_elem = find(elem, 'Content')
                 content = content_elem.text if content_elem is not None else (elem.text or '')
                 content = content.strip()
-                filepath = os.path.join(bucket_path, f'{tag}.md')
+                filepath = os.path.join(bucket_path, filename)
                 # Avoid double-wrapping: if content already has the tag, use as-is
                 if f'<{tag}>' in content and f'</{tag}>' in content:
                     write_file(filepath, content + '\n')
@@ -518,7 +526,7 @@ def generate_manifest(bucket_path):
     viz = []
     other = []
 
-    framework_names = ['NarrativeSpittoon.md', 'GhostWritingStyle.md', 'HolographicTutor.md']
+    framework_names = ['NarrativeSpittoon.md', 'GhostWritingStyle.md', 'GhostWritingStyle-sentence.md', 'HolographicTutor.md']
     char_names = ['characters.md', 'Characters.md', 'speechstyles.md', 'SpeechStyles.md']
     world_names = ['world.md', 'World.md']
 

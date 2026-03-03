@@ -17,8 +17,9 @@ This is a Claude Code plugin implementing the Narrative Spittoon Inversion (NSI)
 ## Architecture
 
 - `bucket/` templates are copied to new projects by /nsi4-start
-- Three CORE cognitive frameworks (NarrativeSpittoon.md, GhostWritingStyle.md, HolographicTutor.md) are copied via literal `cp` to prevent LLM paraphrase distortion
+- Four CORE cognitive frameworks (NarrativeSpittoon.md, GhostWritingStyle.md, GhostWritingStyle-sentence.md, HolographicTutor.md) are copied via literal `cp` to prevent LLM paraphrase distortion
 - GhostWritingStyle.md can be overridden with a user-supplied custom version via `--ghost`
+- GhostWritingStyle-sentence.md controls sentence-level prose style (parataxis, no literal but/because/therefore) and is always installed — not overridable by --ghost
 - All CORE files are immutable after placement — protected by hooks against Write/Edit
 - Story pages are generated in reverse order with approval gates
 - NSL 1.1 XML format for import/export portability

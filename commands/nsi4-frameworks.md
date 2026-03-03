@@ -30,16 +30,21 @@ Check that these three files exist and contain proper content (not just template
 
 3. **`bucket/HolographicTutor.md`** — Must contain the `<HolographicTutor>` framework with Score, Review, Critic, and Weakness functions.
 
+4. **`bucket/GhostWritingStyle-sentence.md`** — Must contain the `<GhostWritingSentenceStyle>` framework with sentence-level prose style rules (parataxis, short declaratives, additive structure).
+
 #### Restoring missing frameworks
 
-If `NarrativeSpittoon.md` or `HolographicTutor.md` is missing or contains only template content, restore using a literal file copy via Bash — do NOT use Read+Write, as LLM interpretation can distort the framework's meaning:
+If `NarrativeSpittoon.md`, `HolographicTutor.md`, or `GhostWritingStyle-sentence.md` is missing or contains only template content, restore using a literal file copy via Bash — do NOT use Read+Write, as LLM interpretation can distort the framework's meaning:
 
 ```bash
 cp "${CLAUDE_PLUGIN_ROOT}/bucket/NarrativeSpittoon.md" bucket/NarrativeSpittoon.md
 cp "${CLAUDE_PLUGIN_ROOT}/bucket/HolographicTutor.md" bucket/HolographicTutor.md
+cp "${CLAUDE_PLUGIN_ROOT}/bucket/GhostWritingStyle-sentence.md" bucket/GhostWritingStyle-sentence.md
 ```
 
 Only copy the specific file(s) that are missing or incomplete. After restoring, verify with `diff` against the canonical source.
+
+Unlike GhostWritingStyle.md, GhostWritingStyle-sentence.md has no custom override mechanism — always restore from plugin source.
 
 #### Special handling: GhostWritingStyle.md
 
@@ -61,6 +66,7 @@ Read ALL files currently in `bucket/` and generate `bucket/project-instructions.
 ## Cognitive Framework Definition
 - NarrativeSpittoon.md - Narrative style guidelines (implicit causality, show don't tell)
 - GhostWritingStyle.md - Writing style rules (dialogue, pacing, voice)
+- GhostWritingStyle-sentence.md - Sentence-level prose style (parataxis, declarative chains, additive structure — no literal but/because/therefore)
 - HolographicTutor.md - Quality assessment system (4 evaluation functions: Score, Review, Critic, Weakness)
 
 ## Universe Core Documentation
@@ -104,5 +110,6 @@ Read ALL files currently in `bucket/` and generate `bucket/project-instructions.
 - [ ] speechstyles.md (with content, not template)
 - [ ] NarrativeSpittoon.md
 - [ ] GhostWritingStyle.md
+- [ ] GhostWritingStyle-sentence.md
 - [ ] HolographicTutor.md
 - [ ] project-instructions.md (just generated)

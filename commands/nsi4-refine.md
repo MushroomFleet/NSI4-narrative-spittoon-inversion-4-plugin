@@ -72,7 +72,7 @@ Polish transitions and continuity:
 1. Read all pages in forward order (page0 through page5)
 2. Check page-to-page flow (reverse-generation seams)
 3. Verify foreshadowing in earlier pages pays off
-4. Confirm causal connections are implicit (per NarrativeSpittoon.md)
+4. Confirm causal connections are implicit at scene level (per NarrativeSpittoon.md) while sentence-level prose avoids literal but/because/therefore words (per GhostWritingStyle-sentence.md)
 5. Polish scene transitions within pages
 6. Update pages with improvements
 
@@ -80,7 +80,7 @@ Polish transitions and continuity:
 Enhance sensory atmosphere:
 1. Read all pages and bucket/world.md
 2. For each page, add: vivid sensory descriptions, deepened atmosphere, environment reflecting character emotions, world-building details
-3. Balance per GhostWritingStyle.md (don't slow pacing)
+3. Balance per GhostWritingStyle.md (don't slow pacing) and GhostWritingStyle-sentence.md (maintain paratactic prose style)
 4. Update pages with enriched detail
 
 ### After Any Pass

@@ -2,7 +2,7 @@
 
 ## Overview
 
-The three cognitive frameworks are the core instruction modules that guide AI narrative
+The four cognitive frameworks are the core instruction modules that guide AI narrative
 generation quality, style, and assessment. They are installed as files in the bucket/
 directory during Phase 3.
 
@@ -52,6 +52,29 @@ implicit narrative techniques.
 9. **Clear imagery**: Vivid imagery, concise description. Limit obscure vocabulary.
 10. **Element balance**: Evaluate pacing. Remove unnecessary passages.
 11. **Character personality**: Quirks, casual speech, unique perspectives.
+
+## Framework 2b: GhostWritingStyle-sentence.md
+
+**Purpose**: Controls sentence-level prose register — how individual sentences are constructed.
+
+**Core principle**: Avoid literal "but", "because", "therefore" as connectors in prose while preserving the but/because/therefore REASONING at scene level (per NarrativeSpittoon.md).
+
+### Key Rules
+1. **Parataxis**: Use short declarative chains. "Tagged and timestamped and wrong."
+2. **Additive structure**: Accumulate observations without causal connectors
+3. **Sentence variety**: Mix short (impact), medium (flow), long (atmosphere)
+4. **Structure mixing**: Simple, compound, complex, fragment
+5. **Active voice**: Prefer active constructions
+6. **Specific language**: Concrete nouns, strong verbs, cut filler
+7. **Show don't tell**: Emotion through action, state through dialogue, atmosphere through detail
+8. **Fresh imagery**: Sparingly used, consistent with universe, purposeful
+9. **Natural dialogue**: Interruptions, fragments, pauses, contractions
+10. **Revision discipline**: Eliminate "was + verb-ing", filter words, unnecessary adverbs
+
+### Relationship to Other Frameworks
+- **NarrativeSpittoon**: Drives scene-level causality (structural but/because/therefore). GhostWritingSentenceStyle removes those words from prose.
+- **GhostWritingStyle**: Handles dialogue mechanics, pacing, voice. GhostWritingSentenceStyle handles sentence construction.
+- **Combined effect**: Prose that performs its epistemology — withholding explicit causal interpretation while the underlying plot is rigorously causal.
 
 ## Framework 3: HolographicTutor.md
 

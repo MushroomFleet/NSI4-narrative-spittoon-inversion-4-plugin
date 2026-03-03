@@ -45,10 +45,11 @@ Distill the LoreBook into specialized artifacts:
 - Technical specs (`.json`), diagrams (`.mermaid`), glossary (`.txt`)
 
 ### Phase 3: Core Framework Setup (`/nsi4-frameworks`)
-Install three cognitive frameworks that guide AI generation quality:
-1. **NarrativeSpittoon.md** — Implicit causality, subtle conflict, organic consequences (eliminates "because/but/therefore")
-2. **GhostWritingStyle.md** — Sentence variation, natural dialogue, active voice, pacing
-3. **HolographicTutor.md** — Quality assessment with Score/Review/Critic/Weakness functions
+Install four cognitive frameworks that guide AI generation quality:
+1. **NarrativeSpittoon.md** — Scene-level causality: implicit but/because/therefore reasoning that drives consequence chains between story beats
+2. **GhostWritingStyle.md** — Writing mechanics: sentence variation, natural dialogue, active voice, pacing (overridable via --ghost)
+3. **GhostWritingStyle-sentence.md** — Sentence-level prose style: avoid literal but/because/therefore words in prose — use parataxis, short declaratives, additive sentence structure
+4. **HolographicTutor.md** — Quality assessment with Score/Review/Critic/Weakness functions
 
 Generate `project-instructions.md` as a manifest indexing all bucket contents.
 
@@ -62,7 +63,7 @@ Reverse-generate the story with approval gates between each page:
 Each page must:
 - Reference all bucket files for consistency
 - Apply NarrativeSpittoon framework (show, don't tell)
-- Follow GhostWritingStyle rules
+- Follow GhostWritingStyle rules (mechanics) and GhostWritingStyle-sentence rules (prose style)
 - Match Hero's Journey stage for that page number
 - Flow naturally into the next page
 - Target 800-1500 words
@@ -103,6 +104,7 @@ A "narrative bucket" is the complete collection of artifacts that define a story
 - `speechstyles.md` — Speech patterns
 - `NarrativeSpittoon.md` — Narrative framework
 - `GhostWritingStyle.md` — Writing style guide
+- `GhostWritingStyle-sentence.md` — Sentence-level prose style
 - `HolographicTutor.md` — Quality assessment system
 - `project-instructions.md` — Component manifest
 
@@ -111,7 +113,7 @@ A "narrative bucket" is the complete collection of artifacts that define a story
 - `*.json` — Technical specifications
 - `*.mermaid` — Visualization diagrams
 
-## Three Cognitive Frameworks
+## Four Cognitive Frameworks
 
 ### NarrativeSpittoon (Narrative Quality)
 Replaces explicit "because/but/therefore" with:
@@ -127,6 +129,20 @@ Replaces explicit "because/but/therefore" with:
 - Use casual speech and verbal tics for voice differentiation
 - Simplify complex sentences, use active voice
 - Balance pacing between elements
+
+### GhostWritingSentenceStyle (Sentence-Level Prose)
+- Avoid literal "but", "because", "therefore" as sentence connectors
+- Use parataxis: short declarative chains without causal conjunctions
+- Additive rather than causal sentence structure
+- Vary sentence length: short for impact, medium for flow, long for atmosphere
+- Mix structures: simple, compound, complex, fragment
+- Active voice constructions preferred
+- Specific over generic nouns and verbs
+- Fresh metaphors used sparingly
+- Cut unnecessary words and filter verbs
+- Revision checklist for prose polish
+
+**Relationship to NarrativeSpittoon**: NarrativeSpittoon drives scene-level "but/because/therefore" — the structural reasoning that makes each beat earn the next. GhostWritingSentenceStyle removes those same words from the actual prose, creating a clipped, accumulative register that performs meaning through omission rather than declaration.
 
 ### HolographicTutor (Assessment System)
 Four functions (call individually):

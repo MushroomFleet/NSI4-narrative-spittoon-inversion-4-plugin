@@ -38,10 +38,11 @@ Before generating ANY page, read these bucket files:
 2. `bucket/world.md` — World-building context
 3. `bucket/characters.md` — Character profiles
 4. `bucket/speechstyles.md` — Speech patterns
-5. `bucket/NarrativeSpittoon.md` — Narrative framework rules
-6. `bucket/GhostWritingStyle.md` — Writing style rules
-7. `bucket/LoreBook.md` — Original knowledge base
-8. Any `.json` and `.mermaid` files in bucket/ for technical context
+5. `bucket/NarrativeSpittoon.md` — Narrative framework rules (scene-level causality)
+6. `bucket/GhostWritingStyle.md` — Writing mechanics rules (dialogue, pacing, voice)
+7. `bucket/GhostWritingStyle-sentence.md` — Sentence-level prose style (parataxis, no literal but/because/therefore)
+8. `bucket/LoreBook.md` — Original knowledge base
+9. Any `.json` and `.mermaid` files in bucket/ for technical context
 
 ### Generation Order
 
@@ -85,8 +86,9 @@ For each page, follow this process:
    - Answers "what led to the next page's events?"
    - Maintains character consistency (reference speechstyles.md)
    - Builds world details (reference world.md)
-   - Applies NarrativeSpittoon.md framework (implicit causality, subtle conflict, organic consequences)
-   - Follows GhostWritingStyle.md rules (varied sentences, natural dialogue, etc.)
+   - Applies NarrativeSpittoon.md framework (scene-level: implicit causality, subtle conflict, organic consequences — each beat earns the next through but/because/therefore reasoning)
+   - Follows GhostWritingStyle.md rules (writing mechanics: varied sentences, natural dialogue, pacing)
+   - Applies GhostWritingStyle-sentence.md rules (sentence-level: avoid literal but/because/therefore words — use parataxis, short declaratives, additive structure)
    - Uses the Hero's Journey stage for this page number
    - Flows naturally into the next page
 
